@@ -4,6 +4,14 @@ import re
 import spacy # type: ignore
 from sklearn.feature_extraction.text import TfidfVectorizer # type: ignore
 from sklearn.metrics.pairwise import cosine_similarity # type: ignore
+import subprocess
+import sys
+
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load('en_core_web_sm')
 
 nlp = spacy.load('en_core_web_sm')
 
