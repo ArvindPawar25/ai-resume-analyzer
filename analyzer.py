@@ -6,11 +6,15 @@ from sklearn.metrics.pairwise import cosine_similarity
 # Load or download the spaCy model
 import subprocess
 import sys
+import spacy
 try:
     nlp = spacy.load("en_core_web_sm")
-except OSError:
+except:
+    import subprocess
+    import sys
     subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
     nlp = spacy.load("en_core_web_sm")
+
 
 def clean_text(text: str) -> str:
     text = text.lower()
