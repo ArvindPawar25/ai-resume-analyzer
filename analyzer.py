@@ -3,14 +3,14 @@ import spacy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Load or auto-download spaCy model
+# Load or download the spaCy model
 import subprocess
 import sys
 try:
-    nlp = spacy.load('en_core_web_sm')
+    nlp = spacy.load("en_core_web_sm")
 except OSError:
     subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load('en_core_web_sm')
+    nlp = spacy.load("en_core_web_sm")
 
 def clean_text(text: str) -> str:
     text = text.lower()
@@ -19,11 +19,7 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 def extract_skills(text: str, skill_keywords: list) -> list:
-    found_skills = []
-    for skill in skill_keywords:
-        if skill.lower() in text.lower():
-            found_skills.append(skill.lower())
-    return found_skills
+    return [skill.lower() for skill in skill_keywords if skill.lower() in text.lower()]
 
 def calculate_similarity(resume_text: str, jd_text: str) -> float:
     vectorizer = TfidfVectorizer()
